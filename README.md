@@ -29,7 +29,7 @@ This project performs sentiment analysis on the IMDb Movie Reviews Dataset to cl
    - Support Vector Machine (SVM) with hyperparameter tuning.
 
 4. **Hyperparameter Tuning**:
-   - **GridSearchCV** is used to optimize parameters like `C`, `kernel`, `gamma`, and `degree`.
+   - **RandomizedSearchCV** is used to optimize parameters like `C`, `kernel`, `gamma`, and `degree`.
 
 ---
 

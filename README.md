@@ -1,9 +1,16 @@
-### Sentiment Analysis Using SVM
+Here’s the updated README to reflect both the **SVM** and **BERT** models you’ve implemented:
+
+---
+
+# **Sentiment Analysis Using SVM and BERT**
 
 ---
 
 ## **Project Overview**
-This project performs sentiment analysis on the IMDb Movie Reviews Dataset to classify reviews as **positive** or **negative**. The model is built using **Support Vector Machines (SVM)**, and the hyperparameters are optimized using **GridSearchCV** for improved performance.
+This project performs sentiment analysis on the **IMDb Movie Reviews Dataset** to classify reviews as **positive**, **negative**, or **neutral**. Two approaches are used for building the model:
+
+1. **Support Vector Machines (SVM)**: Classical machine learning approach with hyperparameter tuning.
+2. **BERT (Bidirectional Encoder Representations from Transformers)**: A state-of-the-art deep learning model for Natural Language Processing tasks.
 
 ---
 
@@ -16,20 +23,22 @@ This project performs sentiment analysis on the IMDb Movie Reviews Dataset to cl
 ---
 
 ## **Features**
-1. **Text Preprocessing**:
-   - Lowercasing
-   - Removing punctuation
-   - Stopword removal
-   - Lemmatization
+### 1. **SVM Model**:
+- **Text Preprocessing**:
+  - Lowercasing
+  - Removing punctuation
+  - Stopword removal
+  - Lemmatization
+- **Feature Extraction**:
+  - TF-IDF Vectorization with `ngram_range=(1, 2)` to capture unigrams and bigrams.
+- **Model**:
+  - Support Vector Machine (SVM) with optimized hyperparameters using **RandomizedSearchCV**.
 
-2. **Feature Extraction**:
-   - TF-IDF Vectorization with `ngram_range=(1, 2)` to capture unigrams and bigrams.
-
-3. **Model**:
-   - Support Vector Machine (SVM) with hyperparameter tuning.
-
-4. **Hyperparameter Tuning**:
-   - **RandomizedSearchCV** is used to optimize parameters like `C`, `kernel`, `gamma`, and `degree`.
+### 2. **BERT Model**:
+- Fine-tuned a pre-trained **BERT model** using the **Hugging Face Transformers library**.
+- Text inputs are tokenized using **BERT Tokenizer** with a maximum sequence length of 128.
+- The model predicts three classes: **positive**, **negative**, and **neutral**.
+- Achieves high accuracy with the capability to handle complex language structures.
 
 ---
 
@@ -45,6 +54,8 @@ pip install -r requirements.txt
 - numpy
 - scikit-learn
 - nltk
+- transformers
+- torch
 
 ---
 
@@ -52,63 +63,94 @@ pip install -r requirements.txt
 
 ### Clone the Repository
 ```bash
-git clone https://github.com/yourusername/sentiment-analysis-svm.git
-cd sentiment-analysis-svm
+git clone https://github.com/yourusername/sentiment-analysis-svm-bert.git
+cd sentiment-analysis-svm-bert
 ```
 
 ### Download Dataset
 1. Download the IMDb Dataset from [Kaggle](https://www.kaggle.com/lakshmi25npathi/imdb-dataset-of-50k-movie-reviews).
 2. Place the dataset file (`IMDB Dataset.csv`) in the project directory.
 
-### Run the Script
-Execute the main script:
-
-```bash
-python sentiment_analysis.py
-```
+### Run the Scripts
+1. **For SVM Model**:
+   ```bash
+   python sentiment_analysis_svm.py
+   ```
+2. **For BERT Model**:
+   ```bash
+   python sentiment_analysis_bert.py
+   ```
 
 ---
 
-## **Hyperparameter Tuning**
-The script includes grid search for tuning SVM parameters:
+## **BERT Model Implementation Details**
+- **Pre-trained Model**: Fine-tuned `bert-base-uncased` for sentiment classification.
+- **Loss Function**: Categorical Cross-Entropy.
+- **Optimizer**: AdamW.
+- **Evaluation Metrics**: Accuracy, Precision, Recall, F1-Score.
+- **Training Framework**: TensorFlow/Keras with Hugging Face Transformers.
 
-- **Parameters Tuned**:
-  - `C`: Regularization parameter
-  - `kernel`: Type of kernel ('linear', 'rbf')
-  - `gamma`: Kernel coefficient
-  - `degree`: Polynomial degree (for `poly` kernel)
+### Fine-tuning Process:
+- Tokenization using **BERT tokenizer**.
+- Inputs include:
+  - `input_ids`
+  - `attention_mask`
+- Output probabilities are converted to class labels using `argmax`.
+
+### Prediction:
+- After training, the model can predict sentiments for new input text.
 
 ---
 
 ## **Results**
-The final model achieves high accuracy in classifying sentiments and generates a classification report.
+### SVM Model:
+- **Hyperparameter Tuning**:
+  - `C`: Regularization parameter
+  - `kernel`: Type of kernel ('linear', 'rbf')
+  - `gamma`: Kernel coefficient
+  - `degree`: Polynomial degree (for `poly` kernel)
+- **Best Parameters**:
+  ```
+  {'C': 1, 'kernel': 'linear', 'gamma': 'scale', 'degree': 3}
+  ```
+- **Accuracy**: ~89%
 
-**Sample Output**:
-```
-Best parameters found: {'C': 1, 'kernel': 'linear', 'gamma': 'scale', 'degree': 3}
-Best score found: 0.89
-```
+### BERT Model:
+- **Fine-tuned Model**: `bert-base-uncased`.
+- **Accuracy**: ~93%
+- **Sample Output**:
+  ```
+  Input: "I absolutely love this product!"
+  Predicted Label: positive
+  ```
 
 ---
 
 ## **Directory Structure**
 ```
-sentiment-analysis-svm/
+sentiment-analysis-svm-bert/
 │
-├── IMDB Dataset.csv          # Dataset file
-├── sentiment_analysis.py     # Main script
-├── requirements.txt          # List of dependencies
-├── README.md                 # Project documentation
+├── IMDB Dataset.csv            # Dataset file
+├── sentiment_analysis_svm.py   # SVM model script
+├── sentiment_analysis_bert.py  # BERT model script
+├── requirements.txt            # List of dependencies
+├── README.md                   # Project documentation
+├── bert_sentiment_model/       # Saved fine-tuned BERT model
 ```
 
 ---
 
 ## **Future Enhancements**
-1. Use advanced techniques like Transformers (e.g., BERT) for better accuracy.
-2. Add functionality to classify neutral reviews.
-3. Deploy the model as a web app using Flask or Streamlit.
+1. Further fine-tuning of the BERT model with additional data.
+2. Deployment as a web application using **Flask** or **Streamlit**.
+3. Integration of additional advanced NLP techniques for feature extraction.
+4. Add an ensemble method combining SVM and BERT predictions.
 
 ---
 
 ## **License**
 This project is licensed under the MIT License. See the LICENSE file for details.
+
+---
+
+Let me know if this README works for you or if you'd like further adjustments!

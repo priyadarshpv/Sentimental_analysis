@@ -1,7 +1,3 @@
-Here’s the updated README to reflect both the **SVM** and **BERT** models you’ve implemented:
-
----
-
 # **Sentiment Analysis Using SVM and BERT**
 
 ---

@@ -149,4 +149,3 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 ---
 
-Let me know if this README works for you or if you'd like further adjustments!
